@@ -1,0 +1,21 @@
+# Virtual Environment
+.venv/
+
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# PyCharm
+.idea/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Intermediate training files
+results/X_train.npy
+results/X_test.npy
+results/y_train.npy
+results/y_test.npy
