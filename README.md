@@ -252,4 +252,22 @@ python quantum_model/vqc_classifier.py
 ```
 
 ---
+Technologies Used
+Python
+NumPy
+Pandas
+SciPy
+Scikit-Learn
+PyWavelets
+MNE
+Qiskit
+Qiskit Machine Learning
+---
 
+Future Enhancements
+Streamlit Web Application
+Real-Time EEG Processing
+Quantum Neural Networks (QNN)
+Hyperparameter Optimization
+Multi-Class Seizure Classification
+Deployment on IBM Quantum Hardware
