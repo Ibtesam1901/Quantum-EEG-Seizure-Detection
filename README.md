@@ -253,6 +253,7 @@ python quantum_model/vqc_classifier.py
 
 ---
 Technologies Used
+
 Python
 NumPy
 Pandas
@@ -271,3 +272,13 @@ Quantum Neural Networks (QNN)
 Hyperparameter Optimization
 Multi-Class Seizure Classification
 Deployment on IBM Quantum Hardware
+
+---
+
+Author
+
+Syed Aakif Zain
+
+Bachelor of Engineering (Computer Science & Engineering)
+
+Quantum EEG Seizure Detection Project
