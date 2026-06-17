@@ -1,3 +1,6 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.metrics import ConfusionMatrixDisplay
 import os
 import numpy as np
 np.random.seed(42)
@@ -134,6 +137,32 @@ print("\nAccuracy:", accuracy_score(y_test, predictions))
 print("Precision:", precision_score(y_test, predictions))
 print("Recall:", recall_score(y_test, predictions))
 print("F1 Score:", f1_score(y_test, predictions))
+metrics = pd.DataFrame({
+    "Metric": ["Accuracy", "Precision", "Recall", "F1 Score"],
+    "Value": [
+        accuracy_score(y_test, predictions),
+        precision_score(y_test, predictions),
+        recall_score(y_test, predictions),
+        f1_score(y_test, predictions)
+    ]
+})
+metrics_path = os.path.join(base_dir, "results", "metrics.csv")
+
+metrics.to_csv(metrics_path, index=False)
+
+print("\nMetrics saved to results/metrics.csv")
+
+cm = confusion_matrix(y_test, predictions)
 
 print("\nConfusion Matrix:")
-print(confusion_matrix(y_test, predictions))
+print(cm)
+
+disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+disp.plot()
+
+image_path = os.path.join(base_dir, "results", "confusion_matrix.png")
+
+plt.savefig(image_path, dpi=300, bbox_inches="tight")
+plt.close()
+
+print("Confusion matrix saved to results/confusion_matrix.png")
