@@ -250,7 +250,14 @@ python quantum_model/prepare_data.py
 ```bash
 python quantum_model/vqc_classifier.py
 ```
+## Evaluation Outputs
 
+After training the VQC model, the following files are generated in the `results/` directory:
+
+- `metrics.csv` containing Accuracy, Precision, Recall, and F1 Score.
+- `confusion_matrix.png` containing a visualization of the confusion matrix.
+
+These outputs make it easier to analyze and compare model performance.
 ---
 Technologies Used
 
