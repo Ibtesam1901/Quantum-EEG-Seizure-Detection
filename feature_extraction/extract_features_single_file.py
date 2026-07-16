@@ -73,8 +73,9 @@ for start in range(
         level=4
     )
 
-    wavelet_energy = np.sum(
-        coeffs[0] ** 2
+    wavelet_energy = sum(
+        np.sum(c ** 2)
+        for c in coeffs
     )
 
     # ---------------------
@@ -121,7 +122,7 @@ for start in range(
     mobility = np.sqrt(
         np.var(first_derivative)
         /
-        np.var(segment)
+        (np.var(segment) + 1e-10)
     )
 
     # ---------------------

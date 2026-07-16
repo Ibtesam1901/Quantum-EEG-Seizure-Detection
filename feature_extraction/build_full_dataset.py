@@ -211,7 +211,7 @@ for edf_file, seizure_range in FILES.items():
             mobility = np.sqrt(
                 np.var(derivative)
                 /
-                np.var(signal)
+                (np.var(signal) + 1e-10)
             )
 
             feature_vector.extend([

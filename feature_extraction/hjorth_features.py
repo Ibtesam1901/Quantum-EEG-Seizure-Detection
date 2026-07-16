@@ -36,7 +36,7 @@ first_derivative = np.diff(signal)
 mobility = np.sqrt(
     np.var(first_derivative)
     /
-    np.var(signal)
+    (np.var(signal) + 1e-10)
 )
 
 print("Hjorth Mobility:")
