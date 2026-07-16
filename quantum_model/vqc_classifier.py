@@ -9,9 +9,11 @@ from sklearn.metrics import (
     f1_score,
     confusion_matrix
 )
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
 
-from qiskit.circuit.library import ZZFeatureMap
-from qiskit.circuit.library import RealAmplitudes
+from qiskit.circuit.library import PauliFeatureMap
+from qiskit.circuit.library import EfficientSU2
 
 from qiskit_machine_learning.algorithms import VQC
 
@@ -58,34 +60,52 @@ y_test = np.load(
 )
 
 # =====================================
-# SMALL SUBSET
+# FULL DATASET USED
 # =====================================
-
-X_train = X_train[:200]
-y_train = y_train[:200]
-
-X_test = X_test[:50]
-y_test = y_test[:50]
 
 print("Train Shape:", X_train.shape)
 print("Test Shape:", X_test.shape)
 
 # =====================================
+# CLASSICAL BASELINE
+# =====================================
+
+rf = RandomForestClassifier(random_state=42)
+rf.fit(X_train, y_train)
+rf_preds = rf.predict(X_test)
+print("\n--- CLASSICAL BASELINE (Random Forest) ---")
+print("Accuracy:", accuracy_score(y_test, rf_preds))
+print("Precision:", precision_score(y_test, rf_preds))
+print("Recall:", recall_score(y_test, rf_preds))
+print("F1 Score:", f1_score(y_test, rf_preds))
+
+svc = SVC(random_state=42)
+svc.fit(X_train, y_train)
+svc_preds = svc.predict(X_test)
+print("\n--- CLASSICAL BASELINE (SVC) ---")
+print("Accuracy:", accuracy_score(y_test, svc_preds))
+print("Precision:", precision_score(y_test, svc_preds))
+print("Recall:", recall_score(y_test, svc_preds))
+print("F1 Score:", f1_score(y_test, svc_preds))
+
+# =====================================
 # FEATURE MAP
 # =====================================
 
-feature_map = ZZFeatureMap(
+feature_map = PauliFeatureMap(
     feature_dimension=4,
-    reps=2
+    reps=2,
+    paulis=['Z', 'ZZ']
 )
 
 # =====================================
 # ANSATZ
 # =====================================
 
-ansatz = RealAmplitudes(
+ansatz = EfficientSU2(
     num_qubits=4,
-    reps=2
+    reps=3,
+    entanglement='linear'
 )
 
 # =====================================
@@ -93,7 +113,7 @@ ansatz = RealAmplitudes(
 # =====================================
 
 optimizer = COBYLA(
-    maxiter=100
+    maxiter=400
 )
 
 # =====================================

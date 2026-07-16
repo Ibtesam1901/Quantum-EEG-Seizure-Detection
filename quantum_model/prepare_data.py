@@ -3,7 +3,8 @@ import numpy as np
 
 from sklearn.decomposition import PCA
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
+from sklearn.feature_selection import SelectKBest, f_classif
 
 # =====================================
 # LOAD DATASET
@@ -83,25 +84,31 @@ print(
 )
 
 # =====================================
-# PCA
+# STANDARDIZE AND FEATURE SELECTION
 # =====================================
 
-pca = PCA(
-    n_components=4
-)
+std_scaler = StandardScaler()
 
-X_pca = pca.fit_transform(
+X_standardized = std_scaler.fit_transform(
     X_balanced
 )
 
-print("\nAfter PCA")
+selector = SelectKBest(
+    score_func=f_classif,
+    k=4
+)
+
+X_pca = selector.fit_transform(
+    X_standardized,
+    y_balanced
+)
+
+print("\nAfter Feature Selection")
 print("Shape:", X_pca.shape)
 
 print(
-    "Explained Variance:",
-    np.sum(
-        pca.explained_variance_ratio_
-    )
+    "Selected Feature Scores:",
+    selector.scores_[selector.get_support()]
 )
 
 # =====================================
